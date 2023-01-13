@@ -51,7 +51,6 @@ MODULE write_netcdf
         ! Get sizes of arrays 
         size_grid = SHAPE(rho)
         size_traj = SIZE(trajectory)
-        print*, size_grid, size_traj
         
         ! Create axes
         ALLOCATE(x_axis(size_grid(1)))
@@ -61,19 +60,14 @@ MODULE write_netcdf
         ! x axis
         DO i = 1, size_grid(1)
             x_axis(i) = -1.0_dp + dx*(i-1)
-            print*, x_axis(i)
         END DO
-        print*, ' x sic'
         ! y axis
         DO i = 1, size_grid(2)
             y_axis(i) = -1.0_dp + dy*(i-1)
-            print*, y_axis(i)
         END DO
-        print*, ' y sic'
         ! t axis
         DO i = 0, size_traj-1
             t_axis(i) = dt*i
-            print*, t_axis(i)
         END DO
 
         
@@ -115,7 +109,6 @@ MODULE write_netcdf
             RETURN
         END IF
         
-        print*, 'good'
 
         ! Grid variables metadata
         ! Dimensions
@@ -166,7 +159,6 @@ MODULE write_netcdf
             RETURN
         END IF
 
-        print*, 'good'
 
         ! Trajectory metadata
         ! Dimension
@@ -220,7 +212,6 @@ MODULE write_netcdf
             RETURN
         END IF
 
-        print*, 'good'
 
         !!! End metadata
         ierr = nf90_enddef(file_id)
@@ -274,7 +265,6 @@ MODULE write_netcdf
             RETURN
         END IF
 
-        print*, 'good*'
 
         ! Trajectory data
         ! x position
@@ -326,7 +316,6 @@ MODULE write_netcdf
             RETURN
         END IF
     
-        print*, 'good**'
 
         ! Close the file
         ierr = nf90_close(file_id)
@@ -335,11 +324,10 @@ MODULE write_netcdf
             RETURN
         END IF
 
-        print*, 'good pre'
         DEALLOCATE(x_axis)
         DEALLOCATE(y_axis)
         DEALLOCATE(t_axis)
-        print*, 'good***' 
+
     END SUBROUTINE
 
 

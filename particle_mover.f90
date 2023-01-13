@@ -31,7 +31,6 @@ MODULE particle_mover_mod
         mu = 1.0
 
         iters = SIZE(traj)-1
-        print*, iters
 
         ! Initialise x and v from command line read-in (problem)
         ! Validation already carried out so should be one of three values
@@ -61,8 +60,6 @@ MODULE particle_mover_mod
         traj(0)%ax = q*E_field_x(cell_x, cell_y) ! HOW IS Ex STORED?
         traj(0)%ay = q*E_field_y(cell_x, cell_y) ! HOW IS Ey STORED?
 
-        print*, traj(0)
-        print*, cell_x, cell_y
         ! Move particle
         DO i = 0, iters-1
             ! New position
@@ -81,7 +78,6 @@ MODULE particle_mover_mod
             traj(i+1)%vx = traj(i)%vx + dt*0.5_dp*(traj(i+1)%ax + traj(i)%ax)
             traj(i+1)%vy = traj(i)%vy + dt*0.5_dp*(traj(i+1)%ay + traj(i)%ay)
 
-            PRINT*, 'i=', i+1, ',', traj(i+1) ! TESTING
         END DO
         
     END SUBROUTINE
