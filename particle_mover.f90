@@ -23,7 +23,7 @@ MODULE particle_mover_mod
 
         ! Declare variables
         REAL(dp) :: m, q, mu ! physical constants
-        INTEGER(INT32) :: i, iters ! lLoop varible and Number of iterations
+        INTEGER(INT32) :: i, iters ! Loop varible and Number of iterations
         INTEGER(INT32) :: cell_x, cell_y ! Indices of E_field array
 
         q = -1.0
@@ -57,8 +57,8 @@ MODULE particle_mover_mod
         cell_y = 1 + FLOOR((traj(0)%y - 1.0_dp)/dy)
     
         ! Initialise a
-        traj(0)%ax = q*E_field_x(cell_x, cell_y) ! HOW IS Ex STORED?
-        traj(0)%ay = q*E_field_y(cell_x, cell_y) ! HOW IS Ey STORED?
+        traj(0)%ax = q*E_field_x(cell_x, cell_y)/m
+        traj(0)%ay = q*E_field_y(cell_x, cell_y)/m
 
         ! Move particle
         DO i = 0, iters-1
@@ -71,8 +71,8 @@ MODULE particle_mover_mod
             cell_y = 1 + FLOOR((traj(i+1)%y - 1.0_dp)/dy)
 
             ! New acceleration
-            traj(i+1)%ax = q*E_field_x(cell_x,cell_y)
-            traj(i+1)%ay = q*E_field_y(cell_x,cell_y)
+            traj(i+1)%ax = q*E_field_x(cell_x,cell_y)/m
+            traj(i+1)%ay = q*E_field_y(cell_x,cell_y)/m
 
             ! New velocity
             traj(i+1)%vx = traj(i)%vx + dt*0.5_dp*(traj(i+1)%ax + traj(i)%ax)

@@ -57,13 +57,15 @@ MODULE write_netcdf
         ALLOCATE(y_axis(size_grid(2)))
         ALLOCATE(t_axis(0:size_traj-1))
 
+        ! Grid axis
+        ! Values defined at the centre of grid cells, in domain -1 to 1
         ! x axis
         DO i = 1, size_grid(1)
-            x_axis(i) = -1.0_dp + dx*(i-1)
+            x_axis(i) = -1.0_dp + dx*(i-0.5_dp)
         END DO
         ! y axis
         DO i = 1, size_grid(2)
-            y_axis(i) = -1.0_dp + dy*(i-1)
+            y_axis(i) = -1.0_dp + dy*(i-0.5_dp)
         END DO
         ! t axis
         DO i = 0, size_traj-1
