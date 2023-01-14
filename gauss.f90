@@ -165,6 +165,8 @@ PROGRAM mini_project
          drms = coef * SQRT(sumd)
          IF (drms /= 0) THEN
              error = etot/drms
+         ELSE
+            error = 0
          END IF
     END DO
 
