@@ -47,6 +47,9 @@ MODULE write_netcdf
         REAL(dp), DIMENSION(:), ALLOCATABLE :: x_axis, y_axis, t_axis
         INTEGER :: x_id, y_id, t_id
 
+        ! Units
+        CHARACTER(LEN=15), PARAMETER :: unit = 'arbitrary units' 
+
 
         ! Get sizes of arrays 
         size_grid = SHAPE(rho)
@@ -121,20 +124,41 @@ MODULE write_netcdf
                 RETURN
             END IF
         END DO
+
         ! rho
         ierr = nf90_def_var(file_id, "rho", NF90_REAL, dims_grid_ids, rho_id)
         IF (ierr /= nf90_noerr) THEN
             PRINT*, TRIM(nf90_strerror(ierr))
             RETURN
         END IF
+        ! rho units
+        ierr = nf90_put_att(file_id, rho_id, 'unit', unit)
+        IF (ierr /= nf90_noerr) THEN
+            PRINT*, TRIM(nf90_strerror(ierr))
+            RETURN
+        END IF
+
         ! phi
         ierr = nf90_def_var(file_id, "phi", NF90_REAL, dims_grid_ids, phi_id)
         IF (ierr /= nf90_noerr) THEN
             PRINT*, TRIM(nf90_strerror(ierr))
             RETURN
         END IF
+        ! phi units
+        ierr = nf90_put_att(file_id, phi_id, 'unit', unit)
+        IF (ierr /= nf90_noerr) THEN
+            PRINT*, TRIM(nf90_strerror(ierr))
+            RETURN
+        END IF
+
         ! x electric field 
         ierr = nf90_def_var(file_id, "Ex", NF90_REAL, dims_grid_ids, Ex_id)
+        IF (ierr /= nf90_noerr) THEN
+            PRINT*, TRIM(nf90_strerror(ierr))
+            RETURN
+        END IF
+        ! ex units
+        ierr = nf90_put_att(file_id, Ex_id, 'unit', unit)
         IF (ierr /= nf90_noerr) THEN
             PRINT*, TRIM(nf90_strerror(ierr))
             RETURN
@@ -145,17 +169,34 @@ MODULE write_netcdf
             PRINT*, TRIM(nf90_strerror(ierr))
             RETURN
         END IF
+        ! ey units
+        ierr = nf90_put_att(file_id, Ey_id, 'unit', unit)
+        IF (ierr /= nf90_noerr) THEN
+            PRINT*, TRIM(nf90_strerror(ierr))
+            RETURN
+        END IF
 
         ! Axes metadata
-        ! x and y have no units as they unit positions
         ! x axis of grids
         ierr = nf90_def_var(file_id, "x_axis", NF90_REAL, dims_grid_ids(1), x_id)
         IF (ierr /= nf90_noerr) THEN
             PRINT*, TRIM(nf90_strerror(ierr))
             RETURN
         END IF
+        ! x axis units
+        ierr = nf90_put_att(file_id, x_id, 'unit', unit)
+        IF (ierr /= nf90_noerr) THEN
+            PRINT*, TRIM(nf90_strerror(ierr))
+            RETURN
+        END IF
         ! y axis of grids
         ierr = nf90_def_var(file_id, "y_axis", NF90_REAL, dims_grid_ids(2), y_id)
+        IF (ierr /= nf90_noerr) THEN
+            PRINT*, TRIM(nf90_strerror(ierr))
+            RETURN
+        END IF
+        ! y axis units
+        ierr = nf90_put_att(file_id, y_id, 'unit', unit)
         IF (ierr /= nf90_noerr) THEN
             PRINT*, TRIM(nf90_strerror(ierr))
             RETURN
@@ -169,38 +210,80 @@ MODULE write_netcdf
             PRINT*, TRIM(nf90_strerror(ierr))
             RETURN
         END IF
+
         ! x position
         ierr = nf90_def_var(file_id, "x", NF90_REAL, dims_traj_id, traj_x_id)
         IF (ierr /= nf90_noerr) THEN
             PRINT*, TRIM(nf90_strerror(ierr))
             RETURN
         END IF
+        ! x units
+        ierr = nf90_put_att(file_id, traj_x_id, 'unit', unit)
+        IF (ierr /= nf90_noerr) THEN
+            PRINT*, TRIM(nf90_strerror(ierr))
+            RETURN
+        END IF
+
         ! y position
         ierr = nf90_def_var(file_id, "y", NF90_REAL, dims_traj_id, traj_y_id)
         IF (ierr /= nf90_noerr) THEN
             PRINT*, TRIM(nf90_strerror(ierr))
             RETURN
         END IF
+        ! y units
+        ierr = nf90_put_att(file_id, traj_y_id, 'unit', unit)
+        IF (ierr /= nf90_noerr) THEN
+            PRINT*, TRIM(nf90_strerror(ierr))
+            RETURN
+        END IF
+
         ! x velocity
         ierr = nf90_def_var(file_id, "vx", NF90_REAL, dims_traj_id, traj_vx_id)
         IF (ierr /= nf90_noerr) THEN
             PRINT*, TRIM(nf90_strerror(ierr))
             RETURN
-        END IF        
+        END IF     
+        ! vx units
+        ierr = nf90_put_att(file_id, traj_vx_id, 'unit', unit)
+        IF (ierr /= nf90_noerr) THEN
+            PRINT*, TRIM(nf90_strerror(ierr))
+            RETURN
+        END IF
+
         ! y velocity
         ierr = nf90_def_var(file_id, "vy", NF90_REAL, dims_traj_id, traj_vy_id)
         IF (ierr /= nf90_noerr) THEN
             PRINT*, TRIM(nf90_strerror(ierr))
             RETURN
         END IF
+        ! vy units
+        ierr = nf90_put_att(file_id, traj_vy_id, 'unit', unit)
+        IF (ierr /= nf90_noerr) THEN
+            PRINT*, TRIM(nf90_strerror(ierr))
+            RETURN
+        END IF
+
         ! x acceleration
         ierr = nf90_def_var(file_id, "ax", NF90_REAL, dims_traj_id, traj_ax_id)
         IF (ierr /= nf90_noerr) THEN
             PRINT*, TRIM(nf90_strerror(ierr))
             RETURN
         END IF
+        ! ax units
+        ierr = nf90_put_att(file_id, traj_ax_id, 'unit', unit)
+        IF (ierr /= nf90_noerr) THEN
+            PRINT*, TRIM(nf90_strerror(ierr))
+            RETURN
+        END IF
+
         ! y acceleration
         ierr = nf90_def_var(file_id, "ay", NF90_REAL, dims_traj_id, traj_ay_id)
+        IF (ierr /= nf90_noerr) THEN
+            PRINT*, TRIM(nf90_strerror(ierr))
+            RETURN
+        END IF
+        ! ay units
+        ierr = nf90_put_att(file_id, traj_ay_id, 'unit', unit)
         IF (ierr /= nf90_noerr) THEN
             PRINT*, TRIM(nf90_strerror(ierr))
             RETURN
@@ -209,6 +292,12 @@ MODULE write_netcdf
         ! Axis metadata
         ! t axis of trajectory
         ierr = nf90_def_var(file_id, "t_axis", NF90_REAL, dims_traj_id, t_id)
+        IF (ierr /= nf90_noerr) THEN
+            PRINT*, TRIM(nf90_strerror(ierr))
+            RETURN
+        END IF
+        ! t units
+        ierr = nf90_put_att(file_id, t_id, 'unit', unit)
         IF (ierr /= nf90_noerr) THEN
             PRINT*, TRIM(nf90_strerror(ierr))
             RETURN
