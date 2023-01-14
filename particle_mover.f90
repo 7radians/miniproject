@@ -11,7 +11,7 @@ MODULE particle_mover_mod
     
     CONTAINS
 
-    SUBROUTINE particle_mover(traj, E_field_x, E_field_y, problem, dx, dy, dt)
+    SUBROUTINE particle_mover(traj, problem, E_field_x, E_field_y, dx, dy, dt)
         ! Precision
         INTEGER, PARAMETER :: dp = real64
 
@@ -26,9 +26,9 @@ MODULE particle_mover_mod
         INTEGER(INT32) :: i, iters ! Loop varible and Number of iterations
         INTEGER(INT32) :: cell_x, cell_y ! Indices of E_field array
 
-        q = -1.0
-        m = 1.0
-        mu = 1.0
+        q = -1.0_dp
+        m = 1.0_dp
+        mu = 1.0_dp
 
         iters = SIZE(traj)-1
 

@@ -24,7 +24,7 @@ else
 fi
 
 # Run fortran with given input data
-./$outfile nx=10 ny=10 problem=null
+time ./$outfile nx=5 ny=5 problem=null
 if [ $? -ne 0 ]; then
   echo Error generating data, terminating.
   return 1
@@ -32,8 +32,8 @@ else
   echo Data successfully generated.
 fi
 
-Run visualisation code
-python3 readfile.py
+# Run visualisation code
+time python3 readfile.py
 if [ $? -ne 0 ]; then
   echo Error visualising data, terminating.
   return 1
