@@ -48,7 +48,8 @@ plt.scatter(xpos, ypos)
 plt.xlabel("x position")
 plt.ylabel("y position")
 plt.title("Particle position")
-#uncomment to zoom the plot out to [-1, 1] domain:
+#the plot is zoomed in to illustrate the movement of the particles more clearly
+#uncomment to zoom the plot out to the [-1, 1] domain:
 #plt.xticks(xaxis)
 #plt.yticks(yaxis)
 plt.show()
