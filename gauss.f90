@@ -197,7 +197,7 @@ PROGRAM mini_project
     run_data%nx = nx
     run_data%ny = ny
 
-    CALL write_data('output_data', ierr, run_data, rho, phi, ex, ey, trajectory, delta_x, delta_y, dt)
+    CALL write_data('output_data', ierr, run_data, rho(1:nx,1:ny), phi(1:nx,1:ny), ex, ey, trajectory, delta_x, delta_y, dt)
     IF (ierr /= nf90_noerr) THEN
       PRINT*, 'Write to netCDF file failed.'
       STOP 11 ! Generate non-zero exit code for bash scripting
