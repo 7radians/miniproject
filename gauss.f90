@@ -27,7 +27,7 @@ PROGRAM mini_project
     ! Variables for particle mover
     REAL(dp), PARAMETER :: dt = 0.01 ! Timestep
     ! Store particle position, velocity, and acceleration in derived type
-    TYPE(particle), DIMENSION(0:10) :: trajectory
+    TYPE(particle), DIMENSION(0:1000) :: trajectory
 
     ! Variables for netcdf write
     TYPE(run_data_struct) :: run_data ! Derived type for run_data
@@ -133,6 +133,7 @@ PROGRAM mini_project
     print*, 'Running Gauss-Seidel algorithm...'
     CALL cpu_time(start)
 
+
     ! Gauss-Seidel algorithm
     
     error = 1.0_dp
@@ -165,7 +166,6 @@ PROGRAM mini_project
          IF (drms /= 0) THEN
              error = etot/drms
          END IF
-         !print*, 'while loop iteration' ! Testing
     END DO
 
     CALL cpu_time(finish)
@@ -196,6 +196,7 @@ PROGRAM mini_project
     PRINT "('Particle moved. Time taken: ', f8.5 ,' seconds.')", finish-start ! Testing
     PRINT*, 'Writing to netCDF file...' ! Testing
     CALL cpu_time(start)
+
 
     ! WRITE NETCDF
     ! Set up run data

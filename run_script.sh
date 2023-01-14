@@ -24,7 +24,7 @@ else
 fi
 
 # Run fortran with given input data
-time ./$outfile nx=5 ny=5 problem=null
+./$outfile nx=100 ny=100 problem=single
 if [ $? -ne 0 ]; then
   echo Error generating data, terminating.
   return 1
@@ -33,7 +33,7 @@ else
 fi
 
 # Run visualisation code
-time python3 readfile.py
+python3 readfile.py
 if [ $? -ne 0 ]; then
   echo Error visualising data, terminating.
   return 1
