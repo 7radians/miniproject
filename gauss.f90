@@ -33,8 +33,12 @@ PROGRAM mini_project
     TYPE(run_data_struct) :: run_data ! Derived type for run_data
     INTEGER :: ierr ! Store error code
 
+    ! Testing: Variables for timing sections.
+    REAL(dp) :: start, finish
+
 
     ! read arguments from the command line, if they exist
+    CALL cpu_time(start)
     CALL parse_args
    
     ! nx read in
@@ -124,8 +128,11 @@ PROGRAM mini_project
         END DO
     END IF
     
-    print*, 'Axes and rho initialised. Running Gauss-Seidel algorithm...' ! Testing
-    
+    CALL cpu_time(finish)
+    print "('Axes and rho initialised. Time taken: ', f8.5 ,' seconds.')", finish-start ! Testing
+    print*, 'Running Gauss-Seidel algorithm...'
+    CALL cpu_time(start)
+
     ! Gauss-Seidel algorithm
     
     error = 1.0_dp
@@ -160,8 +167,12 @@ PROGRAM mini_project
          END IF
          !print*, 'while loop iteration' ! Testing
     END DO
-    
-    print*, 'Gauss Seidel completed. Calculating electric field...' ! Testing
+
+    CALL cpu_time(finish)
+    PRINT "('Gauss Seidel completed. Time taken: ', f8.5 ,' seconds.')", finish-start ! Testing
+    PRINT*, 'Calculating electric field...' ! Testing
+    CALL cpu_time(start)
+       
 
     ! calculate the electric field
    
@@ -172,13 +183,19 @@ PROGRAM mini_project
         END DO
     END DO
 
-    print*, 'Electric field calculated. Running particle mover...' ! Testing
+    CALL cpu_time(finish)
+    PRINT "('Electric field calculated. Time taken: ', f8.5 ,' seconds.')", finish-start ! Testing
+    PRINT*, 'Running particle mover...' ! Testing
+    CALL cpu_time(start)
    
   
     ! PARTICLE MOVER
     CALL particle_mover(trajectory, problem, ex, ey, delta_x, delta_y, dt)
     
-    print*, 'Particle moved. Writing to netCDF file...' ! Testing
+    CALL cpu_time(finish)
+    PRINT "('Particle moved. Time taken: ', f8.5 ,' seconds.')", finish-start ! Testing
+    PRINT*, 'Writing to netCDF file...' ! Testing
+    CALL cpu_time(start)
 
     ! WRITE NETCDF
     ! Set up run data
@@ -192,7 +209,8 @@ PROGRAM mini_project
       PRINT*, 'Write to netCDF file failed.'
       STOP 11 ! Generate non-zero exit code for bash scripting
     ELSE
-      PRINT*, 'Write to netCDF file successful.'
+      CALL cpu_time(finish)
+      PRINT "('Write to netCDF file successful. Time taken: ', f8.5 ,' seconds.')", finish-start 
     END IF
 
 
