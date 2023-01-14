@@ -91,7 +91,6 @@ PROGRAM mini_project
     dx2 = delta_x**2
     dy2 = delta_y**2
     denom = -(2/(dx2) + 2/(dy2))
-    !print *, denom
     count = 0 
     
     DO WHILE (error >= 0.00001)
