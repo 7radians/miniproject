@@ -106,8 +106,6 @@ PROGRAM mini_project
                   xx = (phi(i-1,j) - 2*phi(i,j) + phi(i+1,j))/(dx2)
                   yy = (phi(i,j-1) - 2*phi(i,j) + phi(i,j+1))/(dy2) 
                   et = ABS( xx + yy - rho(i,j) )
-                  !et(i, j) = ABS( (phi(i-1,j) - 2*phi(i,j) + phi(i+1,j))/(delta_x**2) + (phi(i,j-1) - 2*phi(i,j) + phi(i,j+1))/(delta_y**2) - rho(i,j) )
-                  !d(i, j) = SUM( (phi(i-1,j) - 2*phi(i,j) + phi(i+1,j))/(delta_x**2) + (phi(i,j-1) - 2*phi(i,j) + phi(i,j+1))/(delta_y**2))
                   d = xx + yy
                   etot = etot + et
                   sumd = sumd + d
