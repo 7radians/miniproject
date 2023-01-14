@@ -1,8 +1,8 @@
 PROGRAM mini_project
 
     USE ISO_FORTRAN_ENV
-    USE domain_tools
-    USE command_line
+    USE domain_tools ! Source: Warwick RSE.
+    USE command_line ! Source: Warwick RSE.
     USE particle_mover_mod
     USE write_netcdf
 
@@ -35,6 +35,7 @@ PROGRAM mini_project
 
 
     ! read arguments from the command line, if they exist
+    ! Command line functions courtesy of Warwick RSE.
     CALL parse_args
    
     ! nx read in
