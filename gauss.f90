@@ -12,10 +12,10 @@ PROGRAM mini_project
     INTEGER, PARAMETER :: dp = real64
 
     ! Variables for Gauss Seidel
-    INTEGER:: i, j, k, count
+    INTEGER:: i, j, count
     INTEGER, parameter :: nghost = 1
     REAL(dp), DIMENSION(:, :), ALLOCATABLE :: rho, phi, ex, ey
-    REAL(dp):: delta_x, delta_y, delta, denom, var, error, xx, yy, etot, drms, et, d, sumd, dx2, dy2, coef, nxreal, rh
+    REAL(dp):: delta_x, delta_y, delta, denom, var, error, xx, yy, etot, drms, et, d, sumd, dx2, dy2, coef, nxreal
     REAL(dp), DIMENSION(2):: axis_range = [-1, 1]
     REAL(dp), DIMENSION(:), ALLOCATABLE:: x_ax, y_ax
 
