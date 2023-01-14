@@ -7,7 +7,7 @@ PROGRAM mini_project
     
     INTEGER:: i, j, int_val, nx, ny, k, count
     INTEGER, parameter :: nghost = 1
-    REAL(REAL64), DIMENSION(:, :), ALLOCATABLE :: rho, phi
+    REAL(REAL64), DIMENSION(:, :), ALLOCATABLE :: rho, phi, ex, ey
     REAL, parameter :: dt = 0.01
     REAL(REAL64):: delta_x, delta_y, delta, denom, var, error, xx, yy, etot, drms, et, d, sumd, dx2, dy2, coef, nxreal, rh
     REAL(REAL64), DIMENSION(2):: axis_range = [-1, 1]
@@ -44,17 +44,18 @@ PROGRAM mini_project
     
     ALLOCATE(rho(0:nx+1, 0:ny+1))
     ALLOCATE(phi(0:nx+1, 0:ny+1))
+    ALLOCATE(ex(1:nx, 1:ny))
+    ALLOCATE(ey(1:nx, 1:ny))
 
     
     ! create axes with domain range (-1, 1)
          
     CALL create_axis(x_ax, nx, axis_range, nghost, delta)
     delta_x = delta
-    !print *, delta_x
-    
+
     CALL create_axis(y_ax, ny, axis_range, nghost, delta)
     delta_y = delta
-    !print *, delta_y
+
     
     ! set rho
     
@@ -69,8 +70,6 @@ PROGRAM mini_project
             END DO
         END DO
     END IF
-    !print *, rho
-
     
      IF (problem=="double") THEN
         DO i = 1, nx
@@ -114,10 +113,17 @@ PROGRAM mini_project
          drms = coef * SQRT(sumd)
          IF (drms /= 0) THEN
              error = etot/drms
-             print *, "error", error
          END IF
     END DO
-   ! print *, "number of iterations", count
+    
+    ! calculate the electric field
+   
+    DO i = 1, nx
+        DO j = 1, ny
+            ex(i,j) = (phi(i+1,j) - phi(i-1,j))/(2*delta_x)
+            ey(i,j) = (phi(i,j+1) - phi(i,j-1))/(2*delta_y)
+        END DO
+    END DO
    
    
 END PROGRAM mini_project
