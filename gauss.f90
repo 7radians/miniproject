@@ -2,6 +2,7 @@
 ! executable using command: source run_script.sh
 ! Particle mover, write netcdf and shell script by L. Cairns
 ! Gauss-Seidel algorithm, read and visualise netcdf data by M. Radova
+! Project on GitHub: https://github.com/7radians/miniproject
 
 PROGRAM mini_project
 
