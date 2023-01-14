@@ -39,7 +39,6 @@ plt.title('Electric field Ex')
 plt.colorbar(cmap='jet', label ='Electric field')
 plt.xticks(xnum, xaxis)
 plt.yticks(ynum, yaxis)
-#plt.colorbar.ax.set_ylabel('Electric field', rotation=270)
 
 plt.show()
 
